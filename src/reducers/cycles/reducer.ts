@@ -15,21 +15,25 @@ interface CycleState {
   activeCycleId: string | null
 }
 
-type CycleActionType = {
-  type: string
-} & (
-  | {
-      type: CycleActionTypes.ADD_NEW_CYCLE
-      payload: {
-        newCycle: Cycle
-      }
-    }
-  | {
-      type:
-        | CycleActionTypes.INTERRUPT_CURRENT_CYCLE
-        | CycleActionTypes.FINISH_CURRENT_CYCLE
-    }
-)
+export type AddNewCycleAction = {
+  type: CycleActionTypes.ADD_NEW_CYCLE
+  payload: {
+    newCycle: Cycle
+  }
+}
+
+export type InterruptCurrentCycleAction = {
+  type: CycleActionTypes.INTERRUPT_CURRENT_CYCLE
+}
+
+export type FinishCurrentCycleAction = {
+  type: CycleActionTypes.FINISH_CURRENT_CYCLE
+}
+
+type CycleActionType =
+  | AddNewCycleAction
+  | InterruptCurrentCycleAction
+  | FinishCurrentCycleAction
 
 export function cyclesReducer(state: CycleState, action: CycleActionType) {
   switch (action.type) {
